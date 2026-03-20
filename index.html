@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجربة سينمائية تفاعلية</title>
+    <meta name="description" content="تجربة سينمائية ثلاثية الأبعاد تفاعلية - رحلة من الفضاء إلى الأرض">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">جاري التحميل...</p>
+        </div>
+    </div>
+
+    <canvas id="experience-canvas"></canvas>
+
+    <!-- Scene 1: Space overlay -->
+    <div id="scene1-overlay" class="overlay hidden">
+        <div class="scene1-note" id="scene1-note">مافي القلب اليوم يُحكى</div>
+        <button class="btn-3d glow-btn" id="start-btn">البدأ</button>
+    </div>
+
+    <!-- Scene 2: Text overlay -->
+    <div id="scene2-overlay" class="overlay hidden">
+        <div class="text-container glass-panel" id="scene2-text-container">
+            <p class="typewriter-text" id="scene2-text"></p>
+        </div>
+    </div>
+
+    <!-- Scene 3: Doors overlay -->
+    <div id="scene3-overlay" class="overlay hidden">
+        <div class="doors-title" id="doors-title">اختاري باب</div>
+        <div class="doors-container" id="doors-container">
+            <button class="door-btn door-right" id="door-right" data-door="right">
+                <span class="door-icon">🚪</span>
+                <span class="door-label">الباب الأيمن</span>
+            </button>
+            <button class="door-btn door-center" id="door-center" data-door="center">
+                <span class="door-icon">🚪</span>
+                <span class="door-label">الباب الأوسط</span>
+            </button>
+            <button class="door-btn door-left" id="door-left" data-door="left">
+                <span class="door-icon">🚪</span>
+                <span class="door-label">الباب الأيسر</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Door content overlay -->
+    <div id="door-content-overlay" class="overlay hidden">
+        <div class="text-container glass-panel door-text-panel" id="door-text-container">
+            <p class="typewriter-text" id="door-text"></p>
+        </div>
+        <button class="btn-3d back-btn hidden" id="back-btn">رجوع</button>
+    </div>
+
+    <!-- Scene 4: Middle door overlay -->
+    <div id="scene4-overlay" class="overlay hidden">
+        <div class="text-container glass-panel" id="scene4-text-container">
+            <p class="typewriter-text" id="scene4-text"></p>
+        </div>
+        <div class="question-container hidden" id="question-container">
+            <p class="question-text" id="question-text">أتقبلين الاعتذار يا اميرتي الغالية؟</p>
+            <div class="btn-group">
+                <button class="btn-3d btn-yes" id="btn-yes">نعم</button>
+                <button class="btn-3d btn-no" id="btn-no">لا</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book overlay -->
+    <div id="book-overlay" class="overlay hidden">
+        <div class="open-book" id="open-book">
+            <!-- Left page -->
+            <div class="open-book-page open-book-left" id="book-page-left">
+                <div class="page-texture"></div>
+                <div class="page-lines"></div>
+                <div class="page-corner page-corner-tl"></div>
+                <div class="page-corner page-corner-bl"></div>
+                <p class="book-page-text" id="book-text-left"></p>
+                <span class="page-number" id="page-num-left"></span>
+            </div>
+            <!-- Spine -->
+            <div class="open-book-spine">
+                <div class="spine-shadow"></div>
+            </div>
+            <!-- Right page -->
+            <div class="open-book-page open-book-right" id="book-page-right">
+                <div class="page-texture"></div>
+                <div class="page-lines"></div>
+                <div class="page-corner page-corner-tr"></div>
+                <div class="page-corner page-corner-br"></div>
+                <p class="book-page-text" id="book-text-right"></p>
+                <span class="page-number" id="page-num-right"></span>
+            </div>
+            <!-- Page turn effect (overlay that flips) -->
+            <div class="page-turn-overlay hidden" id="page-turn-overlay"></div>
+            <!-- Torn pieces container -->
+            <div class="torn-pieces-container" id="torn-pieces-container"></div>
+        </div>
+        <!-- Turn page button -->
+        <button class="btn-3d page-turn-btn hidden" id="page-turn-btn">اقلب الصفحة ←</button>
+    </div>
+
+    <!-- Finale overlay -->
+    <div id="finale-overlay" class="overlay hidden">
+        <div class="finale-content">
+            <div class="finale-text">شكراً لك ✨</div>
+            <div class="finale-sub">نهاية الفعالية</div>
+        </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div class="notification hidden" id="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <!-- Particle overlay for celebrations -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Three.js and dependencies -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

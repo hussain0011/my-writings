@@ -1,0 +1,672 @@
+/* ========================================
+   3D Cinematic Experience - Styles
+   ======================================== */
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Tajawal', 'Amiri', sans-serif;
+    direction: rtl;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* --- Canvas --- */
+#experience-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#particle-canvas.active {
+    opacity: 1;
+}
+
+/* --- Loading Screen --- */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #0a0a2e 0%, #000011 100%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid #a78bfa;
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loader-text {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 2px;
+}
+
+/* --- Overlays --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none !important;
+    visibility: hidden;
+}
+
+.overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Glass Panel --- */
+.glass-panel {
+    background: rgba(10, 10, 40, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 20px;
+    padding: 40px 50px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* --- Scene 1 Styles --- */
+.scene1-note {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.6), 0 0 60px rgba(167, 139, 250, 0.3);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInUp 2s ease forwards;
+    animation-delay: 0.5s;
+    letter-spacing: 1px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- 3D Buttons --- */
+.btn-3d {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #6d28d9, #a78bfa);
+    border: 2px solid rgba(167, 139, 250, 0.5);
+    border-radius: 16px;
+    padding: 16px 50px;
+    cursor: pointer;
+    position: relative;
+    pointer-events: all;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 4px 15px rgba(109, 40, 217, 0.4),
+        0 8px 30px rgba(109, 40, 217, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transform: perspective(500px) translateZ(0);
+    overflow: hidden;
+}
+
+.btn-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-3d:hover {
+    transform: perspective(500px) translateZ(10px) scale(1.05);
+    box-shadow:
+        0 6px 25px rgba(109, 40, 217, 0.6),
+        0 12px 40px rgba(109, 40, 217, 0.3),
+        0 0 60px rgba(167, 139, 250, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: rgba(167, 139, 250, 0.8);
+}
+
+.btn-3d:hover::before {
+    opacity: 1;
+}
+
+.btn-3d:active {
+    transform: perspective(500px) translateZ(-5px) scale(0.98);
+    box-shadow:
+        0 2px 8px rgba(109, 40, 217, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glow-btn {
+    animation: pulseGlow 2s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow:
+            0 4px 15px rgba(109, 40, 217, 0.4),
+            0 8px 30px rgba(109, 40, 217, 0.2);
+    }
+    50% {
+        box-shadow:
+            0 4px 20px rgba(109, 40, 217, 0.6),
+            0 8px 40px rgba(109, 40, 217, 0.3),
+            0 0 80px rgba(167, 139, 250, 0.4);
+    }
+}
+
+/* --- Text Container --- */
+.text-container {
+    max-width: 700px;
+    width: 90%;
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(167, 139, 250, 0.3) transparent;
+}
+
+.text-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.text-container::-webkit-scrollbar-thumb {
+    background: rgba(167, 139, 250, 0.3);
+    border-radius: 4px;
+}
+
+.typewriter-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.35rem;
+    line-height: 2.2;
+    color: rgba(255, 255, 255, 0.92);
+    text-align: right;
+    direction: rtl;
+    white-space: pre-wrap;
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+}
+
+.text-fade-out {
+    animation: textFadeOut 1.5s ease forwards;
+}
+
+@keyframes textFadeOut {
+    to {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateY(-20px);
+    }
+}
+
+.text-fade-in {
+    animation: textFadeIn 1s ease forwards;
+}
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+}
+
+/* --- Doors --- */
+.doors-title {
+    font-family: 'Amiri', serif;
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease forwards;
+    pointer-events: none;
+}
+
+.doors-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+}
+
+.door-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 220px;
+    background: linear-gradient(180deg, rgba(30, 20, 60, 0.7), rgba(10, 5, 30, 0.9));
+    border: 2px solid rgba(167, 139, 250, 0.15);
+    border-radius: 16px 16px 4px 4px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Tajawal', sans-serif;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.door-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(167, 139, 250, 0.05) 100%);
+    transition: all 0.5s ease;
+}
+
+.door-btn .door-icon {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+    filter: grayscale(0.5);
+    transition: all 0.5s ease;
+}
+
+.door-btn .door-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.door-btn.door-glow {
+    border-color: rgba(167, 139, 250, 0.6);
+    box-shadow:
+        0 0 30px rgba(109, 40, 217, 0.3),
+        0 0 60px rgba(109, 40, 217, 0.15),
+        inset 0 0 20px rgba(167, 139, 250, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    animation: doorPulse 2s ease-in-out infinite;
+}
+
+.door-btn.door-glow .door-icon {
+    filter: grayscale(0);
+}
+
+.door-btn.door-glow:hover {
+    transform: scale(1.08) translateY(-5px);
+    box-shadow:
+        0 0 50px rgba(109, 40, 217, 0.5),
+        0 0 100px rgba(109, 40, 217, 0.2),
+        inset 0 0 30px rgba(167, 139, 250, 0.1);
+}
+
+@keyframes doorPulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(109, 40, 217, 0.3); }
+    50% { box-shadow: 0 0 50px rgba(109, 40, 217, 0.5), 0 0 80px rgba(109, 40, 217, 0.2); }
+}
+
+.door-btn.door-visited {
+    border-color: rgba(100, 100, 100, 0.3);
+    background: linear-gradient(180deg, rgba(40, 40, 40, 0.5), rgba(20, 20, 20, 0.7));
+    cursor: default;
+    color: rgba(150, 150, 150, 0.5);
+    box-shadow: none;
+    animation: none;
+}
+
+.door-btn.door-visited .door-icon {
+    filter: grayscale(1) brightness(0.5);
+}
+
+.door-btn.door-locked {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+/* --- Back Button --- */
+.back-btn {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    border-color: rgba(156, 163, 175, 0.4);
+    font-size: 1.1rem;
+    padding: 12px 40px;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #4b5563, #9ca3af);
+}
+
+/* --- Scene 4 Question --- */
+.question-container {
+    text-align: center;
+    pointer-events: all;
+}
+
+.question-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: #fff;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+    margin-bottom: 35px;
+    animation: textFadeIn 1s ease forwards;
+}
+
+.btn-group {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #059669, #34d399);
+    border-color: rgba(52, 211, 153, 0.5);
+    min-width: 120px;
+}
+
+.btn-yes:hover {
+    box-shadow:
+        0 6px 25px rgba(5, 150, 105, 0.6),
+        0 0 60px rgba(52, 211, 153, 0.3);
+}
+
+.btn-no {
+    background: linear-gradient(135deg, #dc2626, #f87171);
+    border-color: rgba(248, 113, 113, 0.5);
+    min-width: 120px;
+}
+
+.btn-no:hover {
+    box-shadow:
+        0 6px 25px rgba(220, 38, 38, 0.6),
+        0 0 60px rgba(248, 113, 113, 0.3);
+}
+
+/* --- Shake Animation --- */
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-10px) rotate(-2deg); }
+    20% { transform: translateX(10px) rotate(2deg); }
+    30% { transform: translateX(-10px) rotate(-1deg); }
+    40% { transform: translateX(10px) rotate(1deg); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(5px); }
+    70% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+    90% { transform: translateX(-1px); }
+}
+
+.screen-shake {
+    animation: screenShake 0.4s ease;
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5px, -3px); }
+    20% { transform: translate(5px, 3px); }
+    30% { transform: translate(-4px, 2px); }
+    40% { transform: translate(4px, -2px); }
+    50% { transform: translate(-2px, 1px); }
+    60% { transform: translate(2px, -1px); }
+}
+
+/* --- Book --- */
+.book-container {
+    perspective: 1200px;
+    width: 90%;
+    max-width: 650px;
+    pointer-events: none;
+}
+
+.book-page {
+    transform-origin: right center;
+    animation: bookOpen 2s ease forwards;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(15, 10, 40, 0.7), rgba(30, 20, 60, 0.6));
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.book-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0.5), rgba(109, 40, 217, 0.3), rgba(167, 139, 250, 0.5));
+}
+
+@keyframes bookOpen {
+    from {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+.book-text {
+    font-size: 1.5rem;
+    line-height: 2.5;
+    text-align: center;
+}
+
+/* --- Notification --- */
+.notification {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    z-index: 200;
+    background: rgba(10, 10, 40, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 12px;
+    padding: 14px 30px;
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.1rem;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.notification.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.notification.hidden {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* --- Finale --- */
+.finale-content {
+    text-align: center;
+    animation: finaleIn 2s ease forwards;
+}
+
+.finale-text {
+    font-family: 'Amiri', serif;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(167, 139, 250, 0.8), 0 0 120px rgba(167, 139, 250, 0.4);
+    margin-bottom: 20px;
+}
+
+.finale-sub {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 3px;
+}
+
+@keyframes finaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Door Text Panel --- */
+.door-text-panel {
+    max-height: 65vh;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .glass-panel {
+        padding: 25px 20px;
+    }
+
+    .typewriter-text {
+        font-size: 1.1rem;
+        line-height: 2;
+    }
+
+    .scene1-note {
+        font-size: 1.2rem;
+    }
+
+    .doors-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .door-btn {
+        width: 200px;
+        height: 120px;
+        flex-direction: row;
+        gap: 15px;
+        border-radius: 12px;
+    }
+
+    .door-btn .door-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0;
+    }
+
+    .btn-3d {
+        font-size: 1.1rem;
+        padding: 14px 35px;
+    }
+
+    .finale-text {
+        font-size: 2rem;
+    }
+
+    .question-text {
+        font-size: 1.3rem;
+    }
+
+    .btn-group {
+        gap: 15px;
+    }
+
+    .book-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-panel {
+        padding: 20px 15px;
+        border-radius: 14px;
+    }
+
+    .typewriter-text {
+        font-size: 1rem;
+    }
+
+    .doors-container {
+        gap: 15px;
+    }
+}
